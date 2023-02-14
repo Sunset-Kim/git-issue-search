@@ -2,11 +2,11 @@ import type { AxiosInstance } from 'axios';
 import type { SearchResult } from './schema';
 
 interface SearchOption {
-  page: number;
-  per_page: number;
+  page?: number;
+  per_page?: number;
 }
 
-const defaultSearchOption: SearchOption = {
+const defaultSearchOption: Required<SearchOption> = {
   page: 1,
   per_page: 30,
 };
