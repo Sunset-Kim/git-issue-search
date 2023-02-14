@@ -1,3 +1,4 @@
+import { useRepositoryControl } from '@/feature/repository';
 import { SearchResultItem } from '../schema';
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
 };
 
 export function SearchItem({ item }: Props) {
+  const { addRepository } = useRepositoryControl();
   const {
     name,
     full_name,
@@ -25,6 +27,7 @@ export function SearchItem({ item }: Props) {
 
   return (
     <div>
+      <button onClick={() => addRepository(full_name)}>추가</button>
       {full_name}
       {html_url}
       {description}
@@ -32,7 +35,7 @@ export function SearchItem({ item }: Props) {
       {has_issues}
       {open_issues}
       {created_at}
-      <div>
+      <div style={{ width: '100px' }}>
         <img src={avatar_url} alt={login} />
         <span>{login}</span>
       </div>

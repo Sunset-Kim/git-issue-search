@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
+import { RepositoryContextProvider } from './feature/repository';
 import { SearchServiceProvider } from './feature/search/search.context';
 
 const queryClient = new QueryClient({
@@ -20,7 +21,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <SearchServiceProvider>
-        <RouterProvider router={router} />
+        <RepositoryContextProvider>
+          <RouterProvider router={router} />
+        </RepositoryContextProvider>
       </SearchServiceProvider>
     </QueryClientProvider>
   </React.StrictMode>
