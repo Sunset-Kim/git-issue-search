@@ -1,0 +1,53 @@
+@startuml sequece
+
+participant User
+participant "Web Client" as C
+participant "Local Storage" as L
+participant "Github Server" as S
+
+User -> C: GET /
+activate C
+C --> User: 레포지토리 검색페이지(path: /)
+C -> L: repo list를 불러온다
+L --> C: repo list || null 전달
+C -> C: repo list를 update
+
+User -> C: 0. 레포지토리 검색
+C -> S: GET /search/repositories?q=검색어
+alt 검색 성공
+activate S
+S --> C: return 200 / result
+deactivate S
+C --> User: display result
+
+else 검색 실패
+activate S
+S --> C: return 403 / 422 / 503  
+deactivate S
+C --> User: display error message
+end
+
+User -> C: 1. repo를 저장
+
+C -> L: repo 저장
+C -> C: repo list에 repo를 추가
+C --> User: display repo list
+
+
+User -> C: GET: /issues
+
+C -> S: GET: /{owner}/{repo}/issues
+activate S
+alt 요청성공
+S --> C: 200 / result
+C --> User: display result
+ 
+
+else 요청실패
+S --> C: 404 / 422 
+deactivate S
+C --> User: display error
+end
+
+
+@enduml

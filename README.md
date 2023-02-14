@@ -12,3 +12,14 @@
 ## 실행
 
 `npm run dev`
+
+# API
+
+[search repository](https://docs.github.com/en/rest/search?apiVersion=2022-11-28)
+
+- unauth 상태에서 최대결과값 1000개
+- 분당 호출수 10개 제한
+
+[list repository issues](https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues)
+
+- owner, repo 필수
