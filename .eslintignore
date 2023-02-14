@@ -1,3 +1,4 @@
 .eslintrc.cjs
 node_modules
 public
+vite.config.ts
