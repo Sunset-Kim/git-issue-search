@@ -1,5 +1,5 @@
 import { debounce } from '@/feature/common';
-import { useRepository } from '@/feature/repository';
+import { RepositoryList, useRepository } from '@/feature/repository';
 import { useSearch } from '@/feature/search';
 import { SearchList } from '@/feature/search/components';
 import { ChangeEvent } from 'react';
@@ -16,8 +16,7 @@ export function HomePage() {
 
   return (
     <div>
-      {repositories.size !== 0 &&
-        Array.from(repositories).map((item) => <div key={item}>{item}</div>)}
+      <RepositoryList list={Array.from(repositories)} />
       <button onClick={() => setPage((prev) => prev + 1)}>next</button>
       <input onChange={debounce(handleUpdate, 400)} />
 
