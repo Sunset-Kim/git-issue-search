@@ -1,3 +1,4 @@
+import { Tag, TagCloseButton, Text, WrapItem } from '@chakra-ui/react';
 import { useRepositoryControl } from '../repository.context';
 
 type Props = {
@@ -11,11 +12,16 @@ export function RepositoryItem({ name }: Props) {
     removeRepository(repositoryName);
   };
   return (
-    <li>
-      <span>{name}</span>
-      <button type="button" onClick={() => handleClick(name)}>
-        삭제
-      </button>
-    </li>
+    <WrapItem as="li" sx={{ listStyle: 'none' }}>
+      <Tag
+        size="lg"
+        variant={'solid'}
+        colorScheme="linkedin"
+        borderRadius="full"
+      >
+        <Text fontSize="xs">{name}</Text>
+        <TagCloseButton onClick={() => handleClick(name)} />
+      </Tag>
+    </WrapItem>
   );
 }
