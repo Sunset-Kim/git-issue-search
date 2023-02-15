@@ -1,14 +1,21 @@
 import { ErrorPage, HomePage, IssuesPage } from '@/page';
+import { RootPage } from '@/page/root.page';
 import type { RouteObject } from 'react-router-dom';
 
 export const routePath: RouteObject[] = [
   {
     path: '/',
-    element: <HomePage />,
+    element: <RootPage />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: '/issues',
+        element: <IssuesPage />,
+      },
+    ],
     errorElement: <ErrorPage />,
-  },
-  {
-    path: '/issues',
-    element: <IssuesPage />,
   },
 ];

@@ -1,3 +1,4 @@
+import { VStack } from '@chakra-ui/react';
 import type { SearchResultItem } from '../schema';
 import { SearchItem } from './search-item.component';
 
@@ -7,10 +8,10 @@ type Props = {
 
 export function SearchList({ list }: Props) {
   return (
-    <ul>
+    <VStack as="ul">
       {list.map((item) => (
         <SearchItem key={item.id} item={item} />
       ))}
-    </ul>
+    </VStack>
   );
 }
