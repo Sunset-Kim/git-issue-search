@@ -15,7 +15,8 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const MAX_RESULT = 1000;
 const PER_PAGE = 20;
@@ -25,11 +26,18 @@ export function HomePage() {
     perPage: PER_PAGE,
   });
   const { data, isFetching } = getSearchResult;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('q');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === '') return;
-    setQuery(e.target.value);
+    setSearchParams({ q: e.target.value });
   };
+
+  useEffect(() => {
+    if (!query) return;
+    setQuery(query);
+  }, [query]);
 
   return (
     <div>
@@ -45,6 +53,7 @@ export function HomePage() {
             </InputLeftElement>
             <Input
               placeholder="input repository name"
+              defaultValue={query ?? ''}
               onChange={debounce(handleChange, 400)}
             />
           </InputGroup>
