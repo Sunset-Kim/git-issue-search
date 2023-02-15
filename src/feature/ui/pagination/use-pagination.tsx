@@ -55,7 +55,7 @@ export const usePagination = ({
     );
 
     return range(leftSiblingIndex, rightSiblingIndex);
-  }, [siblings, activePage]);
+  }, [siblings, activePage, total]);
 
   return {
     paginationRange,
