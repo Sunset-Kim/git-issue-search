@@ -1,4 +1,5 @@
 import { router } from '@/feature/router';
+import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -24,7 +25,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <SearchServiceProvider>
         <IssueServiceProvider>
           <RepositoryContextProvider>
-            <RouterProvider router={router} />
+            <ChakraProvider>
+              <RouterProvider router={router} />
+            </ChakraProvider>
           </RepositoryContextProvider>
         </IssueServiceProvider>
       </SearchServiceProvider>
