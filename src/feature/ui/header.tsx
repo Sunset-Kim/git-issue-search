@@ -1,9 +1,9 @@
-import { Text } from '@chakra-ui/react';
+import { Center, CenterProps, Heading } from '@chakra-ui/react';
 
-export function Header() {
+export function Header({ ...props }: CenterProps) {
   return (
-    <header>
-      <Text as="h1">Github Issue Searcher</Text>
-    </header>
+    <Center as="header" {...props}>
+      <Heading as="h1">Github Issue Searcher</Heading>
+    </Center>
   );
 }

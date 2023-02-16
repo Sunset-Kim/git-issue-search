@@ -1,18 +1,29 @@
 import { debounce, formatNumber } from '@/feature/common';
+import {
+  RepositoryTag,
+  useRepository,
+  useRepositoryControl,
+} from '@/feature/repository';
 import { useSearch } from '@/feature/search';
 import { SearchList } from '@/feature/search/components';
 import { IconGithub } from '@/feature/ui/icons';
+import { StickyBox } from '@/feature/ui/layouts';
 import { Pagination } from '@/feature/ui/pagination';
 import {
   Box,
-  Center,
+  Flex,
   FormControl,
+  FormHelperText,
   FormLabel,
   Icon,
   Input,
   InputGroup,
   InputLeftElement,
   Spinner,
+  Text,
+  VStack,
+  Wrap,
+  WrapItem,
 } from '@chakra-ui/react';
 
 import { ChangeEvent, useEffect } from 'react';
@@ -30,9 +41,15 @@ export function HomePage() {
   const query = searchParams.get('q');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '') return;
+    if (e.target.value === '') {
+      setSearchParams();
+      return;
+    }
     setSearchParams({ q: e.target.value });
   };
+
+  const { repositories } = useRepository();
+  const { removeRepository } = useRepositoryControl();
 
   useEffect(() => {
     if (!query) return;
@@ -40,14 +57,14 @@ export function HomePage() {
   }, [query]);
 
   return (
-    <div>
-      <Box py={4} bg="white" position="sticky" top={0} zIndex={999}>
+    <VStack alignItems={'stretch'} h="100%">
+      <StickyBox py={4} mx={-4} px={4} bg="white">
         <FormControl>
           <FormLabel fontSize={'sm'}>
             Search Repository
             {data && `(${formatNumber(data.total_count)})`}
           </FormLabel>
-          <InputGroup mb={4}>
+          <InputGroup mb={2}>
             <InputLeftElement pointerEvents="none">
               {isFetching ? <Spinner size="sm" /> : <Icon as={IconGithub} />}
             </InputLeftElement>
@@ -57,10 +74,23 @@ export function HomePage() {
               onChange={debounce(handleChange, 400)}
             />
           </InputGroup>
+
+          <FormHelperText mb={4}>
+            <Text fontSize="xs" fontWeight="light" mb={1}>
+              Saved Repository
+            </Text>
+            <Wrap>
+              {Array.from(repositories).map((repo, i) => (
+                <WrapItem key="repo">
+                  <RepositoryTag tagName={repo} onClose={removeRepository} />
+                </WrapItem>
+              ))}
+            </Wrap>
+          </FormHelperText>
         </FormControl>
 
-        <Center width={'100%'} position={'sticky'} top={0} zIndex={999} mb={2}>
-          {data && (
+        {data && (
+          <Flex justifyContent="right" width="100%" mb={2}>
             <Pagination
               page={activePage}
               onChange={(page) => setPage(page)}
@@ -68,11 +98,11 @@ export function HomePage() {
                 Math.min(data.total_count, MAX_RESULT) / PER_PAGE
               )}
             />
-          )}
-        </Center>
-      </Box>
+          </Flex>
+        )}
+      </StickyBox>
 
-      <Box>{data && <SearchList list={data.items} />}</Box>
-    </div>
+      <Box flex={1}>{data && <SearchList list={data.items} />}</Box>
+    </VStack>
   );
 }

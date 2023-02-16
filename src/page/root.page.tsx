@@ -1,20 +1,20 @@
-import { RepositoryList } from '@/feature/repository';
 import { Header } from '@/feature/ui';
 import { Nav } from '@/feature/ui/nav';
-import { Box, Container } from '@chakra-ui/react';
+import { Box, Container, VStack } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
 export function RootPage() {
   return (
-    <Container as="main">
-      <Header />
+    <Container py={2} h="100%" as="main">
+      <VStack h="100%" alignItems="stretch">
+        <Header mb="5" />
 
-      <Box mb="2">
-        <RepositoryList />
-      </Box>
+        <Nav />
 
-      <Nav />
-      <Outlet />
+        <Box position={'relative'} flex={1}>
+          <Outlet />
+        </Box>
+      </VStack>
     </Container>
   );
 }
