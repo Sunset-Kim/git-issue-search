@@ -1,3 +1,5 @@
+import { RepositoryTag, useRepository } from '@/feature/repository';
+import { REPOSITORIES_COLORS } from '@/feature/repository/repositories-color';
 import { GithubProfile } from '@/feature/ui';
 import { LinkIcon } from '@chakra-ui/icons';
 import {
@@ -8,7 +10,6 @@ import {
   Flex,
   Heading,
   Link,
-  Tag,
   Text,
 } from '@chakra-ui/react';
 import type { Issue } from '../schema';
@@ -18,12 +19,25 @@ type Props = {
 };
 
 export function IssueItem({ issue }: Props) {
-  const { title, number, html_url, user } = issue;
+  const { repositories } = useRepository();
+  const { title, number, html_url, user, repositoryName } = issue;
   const { avatar_url, login } = user;
+  const matchedIndex = [...repositories].findIndex(
+    (name) => name === repositoryName
+  );
   return (
     <Card w="100%">
       <CardHeader pb={0}>
-        <Tag>{issue?.repositoryName}</Tag>
+        {repositoryName && (
+          <RepositoryTag
+            mb="2"
+            variant="subtle"
+            tagName={repositoryName}
+            colorScheme={
+              matchedIndex === -1 ? 'gray' : REPOSITORIES_COLORS[matchedIndex]
+            }
+          />
+        )}
 
         <Heading as="h4" size="sm">
           <Text as="span" color="linkedin.500" mr={2}>
