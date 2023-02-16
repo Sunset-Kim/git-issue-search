@@ -18,7 +18,10 @@ export function Pagination({ page, total, initialPage, onChange }: Props) {
   const { next, previous, active, first, last, setPage, paginationRange } =
     usePagination({ total, page, initialPage, onChange });
 
-  console.log(active === 1);
+  if (total === 0) {
+    return null;
+  }
+
   return (
     <ButtonGroup>
       <IconButton
