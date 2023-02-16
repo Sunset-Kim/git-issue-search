@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import { createContext } from '../common';
 import debug from '../common/utils/debug-log';
@@ -36,11 +37,10 @@ export { useRepository, useRepositoryControl };
 
 // Provider
 export function RepositoryContextProvider({ children }: PropsWithChildren) {
+  const toast = useToast();
   const repositoryDB = new LocalStorage<Set<string>>(REPOSITORY_KEY, {
     defaultValue: new Set(),
   });
-
-  console.log(repositoryDB.getItem());
 
   const [repositories, setRepositories] = useState<Set<string>>(
     () => repositoryDB.getItem() ?? new Set()
@@ -50,8 +50,12 @@ export function RepositoryContextProvider({ children }: PropsWithChildren) {
   log(repositories);
 
   const addRepository = useCallback((repository: string) => {
-    if (repositories.size > MAX_LENGTH) {
-      throw Error(`repository max length is ${MAX_LENGTH}`);
+    if (repositories.size >= MAX_LENGTH) {
+      return toast({
+        title: `repository max length is ${MAX_LENGTH}`,
+        status: 'error',
+        position: 'bottom-right',
+      });
     }
     const newRepos = new Set(repositories.add(repository));
     repositoryDB.setItem(newRepos);
