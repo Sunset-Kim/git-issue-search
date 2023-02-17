@@ -6,6 +6,7 @@ import {
 } from '@/feature/repository';
 import { useSearch } from '@/feature/search';
 import { SearchList } from '@/feature/search/components';
+import { InputWithLoading } from '@/feature/ui';
 import { IconGithub } from '@/feature/ui/icons';
 import { StickyBox } from '@/feature/ui/layouts';
 import { Pagination } from '@/feature/ui/pagination';
@@ -16,10 +17,6 @@ import {
   FormHelperText,
   FormLabel,
   Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Spinner,
   Text,
   VStack,
   Wrap,
@@ -64,16 +61,16 @@ export function HomePage() {
             Search Repository
             {data && `(${formatNumber(data.total_count)})`}
           </FormLabel>
-          <InputGroup mb={2}>
-            <InputLeftElement pointerEvents="none">
-              {isFetching ? <Spinner size="sm" /> : <Icon as={IconGithub} />}
-            </InputLeftElement>
-            <Input
+
+          <Box mb={2}>
+            <InputWithLoading
+              isLoading={isFetching}
               placeholder="input repository name"
+              leftElement={<Icon as={IconGithub} />}
               defaultValue={query ?? ''}
               onChange={debounce(handleChange, 400)}
             />
-          </InputGroup>
+          </Box>
 
           <FormHelperText mb={4}>
             <Text fontSize="xs" fontWeight="light" mb={1}>
