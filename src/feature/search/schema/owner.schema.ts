@@ -3,7 +3,8 @@ export interface Owner {
   id: number;
   node_id: string;
   avatar_url: string;
-  html_url: 'https://github.com/toktok1';
+  html_url: string;
   type: string;
   site_admin: boolean;
+  [key: string]: any;
 }

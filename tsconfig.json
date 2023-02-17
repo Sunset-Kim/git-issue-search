@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    "types": [
+      "jest",
+      "node",
+      "@testing-library/jest-dom",
+      "@testing-library/user-event"
+    ],
+    "typeRoots": ["node_modules/@types"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -21,6 +28,6 @@
     }
   },
 
-  "include": ["src"],
+  "include": ["src/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
