@@ -9,7 +9,6 @@ describe('range', () => {
 
   it('reverse case', () => {
     const result = range(4, 1);
-    console.log(result);
     expect(result).toEqual([1, 2, 3, 4]);
   });
 
