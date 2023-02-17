@@ -17,7 +17,7 @@ export const usePagination = ({
   onChange,
   siblings = 2,
 }: UsePagination) => {
-  if (total <= 0) {
+  if (total < 0) {
     throw Error('Total Page count is over 0');
   }
   const _total = Math.max(Math.trunc(total), 1);
@@ -44,17 +44,22 @@ export const usePagination = ({
   const last = () => setPage(_total);
 
   const paginationRange = useMemo(() => {
-    const totalPageNumber = siblings * 2 + 1;
-    if (_total <= totalPageNumber) {
+    const paginationCount = siblings * 2 + 1;
+
+    if (_total === 0) {
+      return [];
+    }
+
+    if (_total <= paginationCount) {
       return range(1, _total);
     }
 
     const leftSiblingIndex = Math.max(
-      Math.min(_total - totalPageNumber + 1, activePage - siblings),
+      Math.min(_total - paginationCount + 1, activePage - siblings),
       1
     );
     const rightSiblingIndex = Math.min(
-      Math.max(totalPageNumber, activePage + siblings),
+      Math.max(paginationCount, activePage + siblings),
       _total
     );
 

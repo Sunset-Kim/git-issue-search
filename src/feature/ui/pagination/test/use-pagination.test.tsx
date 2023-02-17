@@ -3,13 +3,21 @@ import 'jest';
 import { usePagination } from '../use-pagination';
 
 describe('use-pagination hook', () => {
-  describe('Total <= 0 일때', () => {
+  describe('Total < 0 일때', () => {
     it('hook throw Error', () => {
       expect(() => {
         renderHook(() => usePagination({ total: 0 }));
       }).toThrow();
     });
   });
+
+  describe('Total === 0 일때', () => {
+    it('hook throw Error', () => {
+      const { result } = renderHook(() => usePagination({ total: 1 }));
+      console.log(result.current.paginationRange);
+    });
+  });
+
   describe('Total > 0 일때', () => {
     it('Page Rnage를 리턴하고 next,previous,last,first 로 현재페이지를 변경할 수 있다', () => {
       const { result } = renderHook(() => usePagination({ total: 5 }));
