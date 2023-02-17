@@ -14,8 +14,8 @@
 `npm run dev`
 
 ## libraries
-
-- main: React 18, react-router-dom@6
+- build: Vite4.1.0, SWC
+- main: typescript, React 18, react-router-dom@6
 - ui: chakra ui
 - data fetching: axios
 - state management: tanstack-query
@@ -74,9 +74,9 @@ src
 ![Sequence Flow](./out/docs/sequence.diagram/sequece.png)
 
 1. Home Page ('/')
-   | - 유저는 해당 페이지에 접근하여 검색 기능을 이용해 repository를 query 할 수 있다.
-   | - 검색된 Public Repository를 등록할 수 있다.
-   | - 등록 개수는 최대 4개로 제한하며, 최대 개수 초과 등록 시 이를 사용자에게 알려준다.
+> - 유저는 해당 페이지에 접근하여 검색 기능을 이용해 repository를 query 할 수 있다.
+> - 검색된 Public Repository를 등록할 수 있다.
+> - 등록 개수는 최대 4개로 제한하며, 최대 개수 초과 등록 시 이를 사용자에게 알려준다.
 
 - public query는 분당 10개의 호출의 한계를 가지므로 debounce를 통해 요청을 지연시킨다.
 - 요청이 실패하면 user 에게 UI feedback을 준다.
@@ -87,10 +87,10 @@ src
 ![home - user scroll](./out/docs/screenshot/search-scroll.png)
 
 2. Issue Page
-   | 등록된 각각의 Public Repository의 issue를 한 페이지에서 모아서 볼 수 있다.
-   | - 각 issue 마다 제목, Repository 명은 필수로 표현되어야 한다.
-   | - 해당 issue를 클릭하면 Github의 상세 페이지로 이동할 수 있다.
-   | - 페이지네이션을 통해서 계속해서 issue를 모아서 볼 수 있다.
+> 등록된 각각의 Public Repository의 issue를 한 페이지에서 모아서 볼 수 있다.
+> - 각 issue 마다 제목, Repository 명은 필수로 표현되어야 한다.
+> - 해당 issue를 클릭하면 Github의 상세 페이지로 이동할 수 있다.
+> - 페이지네이션을 통해서 계속해서 issue를 모아서 볼 수 있다.
 
-![issue](./out/docs/screenshot/issue.png.png)
+![issue](./out/docs/screenshot/issue.png)
 ![issue - user scroll](./out/docs/screenshot/issue-scroll.png)
