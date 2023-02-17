@@ -6,7 +6,7 @@ module.exports = {
     '!src/mocks/**',
   ],
   coveragePathIgnorePatterns: [],
-  setupFilesAfterEnv: ['./__mocks__/setupTests.js'],
+  setupFilesAfterEnv: ['<rootDir>/__mocks__/setup-tests.js'],
   testEnvironment: 'jsdom',
   modulePaths: ['<rootDir>/src'],
   transform: {

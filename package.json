@@ -29,6 +29,7 @@
     "@swc/core": "^1.3.35",
     "@swc/jest": "^0.2.24",
     "@tanstack/eslint-plugin-query": "^4.24.7",
+    "@testing-library/dom": "^9.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",

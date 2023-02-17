@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
-    "types": ["jest", "node"],
+    "types": [
+      "jest",
+      "node",
+      "@testing-library/jest-dom",
+      "@testing-library/user-event"
+    ],
     "typeRoots": ["node_modules/@types"],
     "target": "ESNext",
     "useDefineForClassFields": true,
