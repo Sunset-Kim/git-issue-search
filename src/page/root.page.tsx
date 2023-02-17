@@ -1,5 +1,4 @@
-import { Header } from '@/feature/ui';
-import { Nav } from '@/feature/ui/nav';
+import { Header, Nav } from '@/feature/ui';
 import { Box, Container, VStack } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
