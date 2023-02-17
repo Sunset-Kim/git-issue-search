@@ -17,7 +17,11 @@ export const usePagination = ({
   onChange,
   siblings = 2,
 }: UsePagination) => {
-  const _total = Math.max(Math.trunc(total), 0);
+  if (total <= 0) {
+    throw Error('Total Page count is over 0');
+  }
+  const _total = Math.max(Math.trunc(total), 1);
+
   const [activePage, setActivePage] = useUncontrolled({
     value: page,
     onChange,
