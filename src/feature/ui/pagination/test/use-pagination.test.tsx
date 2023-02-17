@@ -5,7 +5,9 @@ import { usePagination } from '../use-pagination';
 describe('use-pagination hook', () => {
   describe('Total <= 0 일때', () => {
     it('hook throw Error', () => {
-      expect(() => renderHook(() => usePagination({ total: 0 }))).toThrow();
+      expect(() => {
+        renderHook(() => usePagination({ total: 0 }));
+      }).toThrow();
     });
   });
   describe('Total > 0 일때', () => {
