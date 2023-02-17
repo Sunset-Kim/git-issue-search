@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "types": ["jest", "node"],
+    "typeRoots": ["node_modules/@types"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -21,6 +23,6 @@
     }
   },
 
-  "include": ["src"],
+  "include": ["src/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
