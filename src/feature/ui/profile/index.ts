@@ -1,1 +1,1 @@
-export * from './github-profile';
+export * from './github-profile.component';
