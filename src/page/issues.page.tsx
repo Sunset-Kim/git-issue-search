@@ -13,17 +13,19 @@ import {
   Box,
   Center,
   Flex,
+  Select,
   Spinner,
   Text,
   VStack,
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
-
+import dayjs from 'dayjs';
 import { useState } from 'react';
 
 export function IssuesPage() {
   // repository
+  const [filter, setFilter] = useState<'acc' | 'desc'>('desc');
   const { repositories } = useRepository();
   const { removeRepository } = useRepositoryControl();
   const repositoriesArr = Array.from(repositories);
@@ -32,7 +34,16 @@ export function IssuesPage() {
 
   const data =
     results &&
-    results.flatMap((result) => result.data).filter(isNotNullOrUndefined);
+    results
+      .flatMap((result) => result.data)
+      .filter(isNotNullOrUndefined)
+      .sort((issue1, issue2) => {
+        return filter === 'acc'
+          ? dayjs(issue1.created_at).valueOf() -
+              dayjs(issue2.created_at).valueOf()
+          : dayjs(issue2.created_at).valueOf() -
+              dayjs(issue1.created_at).valueOf();
+      });
 
   // pagenation
   const [page, setPage] = useState(1);
@@ -77,7 +88,18 @@ export function IssuesPage() {
               )}
             </Box>
 
-            <Flex justifyContent={'right'}>
+            <Flex gap={4} justifyContent="space-between" alignItems="center">
+              <Select
+                borderRadius="lg"
+                size="sm"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value as 'desc' | 'acc')}
+              >
+                <option selected value="desc">
+                  최신순
+                </option>
+                <option value="acc">오래된순</option>
+              </Select>
               <Pagination
                 total={totalPage}
                 page={page}

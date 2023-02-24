@@ -1,15 +1,19 @@
+import { formatDate } from '@/feature/common';
 import { RepositoryTag, useRepository } from '@/feature/repository';
 import { REPOSITORIES_COLORS } from '@/feature/repository/repositories-color';
 import { GithubProfile } from '@/feature/ui';
 import { LinkIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Button,
   Card,
   CardFooter,
   CardHeader,
   Flex,
   Heading,
+  HStack,
   Link,
+  StackDivider,
   Text,
 } from '@chakra-ui/react';
 import type { Issue } from '../schema';
@@ -20,7 +24,16 @@ type Props = {
 
 export function IssueItem({ issue }: Props) {
   const { repositories } = useRepository();
-  const { title, number, html_url, user, repositoryName } = issue;
+  const {
+    title,
+    number,
+    html_url,
+    user,
+    repositoryName,
+    created_at,
+    closed_at,
+    updated_at,
+  } = issue;
   const { avatar_url, login } = user;
   const matchedIndex = [...repositories].findIndex(
     (name) => name === repositoryName
@@ -39,16 +52,21 @@ export function IssueItem({ issue }: Props) {
           />
         )}
 
-        <Heading as="h4" size="sm">
-          <Text as="span" color="linkedin.500" mr={2}>
-            #{number}
-          </Text>
-          {title}
-        </Heading>
+        <Flex gap={2} justifyContent="space-between" alignItems="center">
+          <Heading as="h4" size="sm" flex={1}>
+            <Text as="span" color="linkedin.500" mr={2}>
+              #{number}
+            </Text>
+            {title}
+          </Heading>
+
+          <Text fontSize={'xs'}>{formatDate(created_at)}</Text>
+        </Flex>
       </CardHeader>
 
       <CardFooter>
-        <Flex
+        <HStack
+          divider={<StackDivider />}
           wrap="wrap"
           w="100%"
           py={2}
@@ -58,6 +76,11 @@ export function IssueItem({ issue }: Props) {
           alignItems="center"
         >
           <GithubProfile imgUrl={avatar_url} name={login} />
+          <Box>
+            <Text fontSize="sm">최종업데이트</Text>
+            <Text fontSize="sm">{formatDate(updated_at)}</Text>
+          </Box>
+
           <Button
             leftIcon={<LinkIcon />}
             size="sm"
@@ -68,7 +91,7 @@ export function IssueItem({ issue }: Props) {
           >
             Issue 바로가기
           </Button>
-        </Flex>
+        </HStack>
       </CardFooter>
     </Card>
   );
